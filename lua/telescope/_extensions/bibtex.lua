@@ -340,6 +340,9 @@ citation_append = function(prompt_bufnr)
   end
 end
 
+
+
+
 local function format_note(entry)
   local parsed = utils.parse_entry(entry)
   local today = os.date('%Y-%m-%d')
@@ -380,20 +383,33 @@ end
 entry_md_note = function(prompt_bufnr)
   local entry = action_state.get_selected_entry().id.content
   actions.close(prompt_bufnr)
-  local fileName = format_fileName(entry)
-  local pathName = '/Users/luis/master/notes/annotations/' .. fileName
-  local note = format_note(entry)
+	local parsed = utils.parse_entry(entry)
+	if parsed.author ~= nil then 
+		local fileName = format_fileName(entry)
+		local pathName = '/Users/luis/master/notes/annotations/' .. fileName
+		local note = format_note(entry)
+		
 
-  if file_exists(pathName) then
-    -- Open the file in read mode
-    vim.cmd('edit' .. pathName)
-  else
-    vim.cmd('edit' .. pathName)
-    vim.api.nvim_paste(note, true, -1)
-  end
+		if file_exists(pathName) then
+			-- Open the file in read mode
+			vim.cmd('edit' .. pathName)
+		else
+			vim.cmd('edit' .. pathName)
+			vim.api.nvim_paste(note, true, -1)
+		end
+	else
+		vim.cmd('echo "No author entry... Check your Zotero entry"')
+	end
 end
 
-
+--local function check_author_existence(entry)
+	--local parsed = utils.parse_entry(entry)
+	--if parsed.author ~= nil then 
+		--return true
+	--else
+		--vim.cmd('echo "No author entry... Check your Zotero entry"')
+	--end
+--end
 
 
 return telescope.register_extension({
