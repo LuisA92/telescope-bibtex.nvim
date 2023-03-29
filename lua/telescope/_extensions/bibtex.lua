@@ -73,7 +73,7 @@ local function getBibFiles(dir)
     on_insert = function(file)
       local p = path:new(file):absolute()
       if not utils.file_present(files, p) then
-        table.insert(files, { name = p , mtime = 0, entries = {} })
+        table.insert(files, { name = p, mtime = 0, entries = {} })
       end
     end,
   })
@@ -279,7 +279,7 @@ local function bibtex_picker(opts)
         actions.select_default:replace(key_append(format_string))
         map('i', '<c-e>', entry_append)
         map('i', '<c-c>', citation_append)
-				map('i','<c-n>',entry_md_note)
+        map('i', '<c-n>', entry_md_note)
         return true
       end,
     })
@@ -340,9 +340,6 @@ citation_append = function(prompt_bufnr)
   end
 end
 
-
-
-
 local function format_note(entry)
   local parsed = utils.parse_entry(entry)
   local today = os.date('%Y-%m-%d')
@@ -353,7 +350,12 @@ local function format_note(entry)
   note = note .. 'tags: \n'
   note = note .. '--- \n \n'
   if parsed.file ~= nil then
-    note = note .. 'link: [' .. parsed.title .. '](file:' .. parsed.file .. ')\n \n'
+    note = note
+      .. 'link: ['
+      .. parsed.title
+      .. '](file:'
+      .. parsed.file
+      .. ')\n \n'
   else
     note = note
   end
@@ -383,30 +385,27 @@ end
 entry_md_note = function(prompt_bufnr)
   local entry = action_state.get_selected_entry().id.content
   actions.close(prompt_bufnr)
-	local parsed = utils.parse_entry(entry)
-	if parsed.author ~= nil then 
-		local fileName = format_fileName(entry)
-		local pathName = annotation_path .. fileName
-		local note = format_note(entry)
+  local parsed = utils.parse_entry(entry)
+  if parsed.author ~= nil then
+    local fileName = format_fileName(entry)
+    local pathName = ext_config.annotation_path .. fileName
+    local note = format_note(entry)
 
-		if file_exists(pathName) then
-			-- Open the file in read mode
-			vim.cmd('edit' .. pathName)
-		else
-			vim.cmd('edit' .. pathName)
-			vim.api.nvim_paste(note, true, -1)
-		end
-	else
-		vim.api.nvim_echo({
-    {"Error creating note:", "ErrorMsg"},
-    {" Check your Zotero entry", "Error"}
-		}, false, {})
-		vim.cmd('messages')
-	end
+    if file_exists(pathName) then
+      -- Open the file in read mode
+      vim.cmd('edit' .. pathName)
+    else
+      vim.cmd('edit' .. pathName)
+      vim.api.nvim_paste(note, true, -1)
+    end
+  else
+    vim.api.nvim_echo({
+      { 'Error creating note:', 'ErrorMsg' },
+      { ' Check your Zotero entry', 'Error' },
+    }, false, {})
+    vim.cmd('messages')
+  end
 end
-
-
-
 
 return telescope.register_extension({
   setup = function(ext_config)
