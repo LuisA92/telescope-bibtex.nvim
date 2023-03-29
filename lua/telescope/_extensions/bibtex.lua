@@ -398,7 +398,7 @@ entry_md_note = function(prompt_bufnr)
 			vim.api.nvim_paste(note, true, -1)
 		end
 	else
-		vim.api.nvim_command('echo"No author entry... Check your Zotero entry"')
+		vim.api.nvim_command('echo "No author entry... Check your Zotero entry"')
 	end
 end
 
