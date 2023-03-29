@@ -400,6 +400,7 @@ entry_md_note = function(prompt_bufnr)
 		end
 	else
 		local message = ' "no"'
+		return
 	end
 	vim.cmd('echo' .. message)
 end
