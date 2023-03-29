@@ -386,10 +386,8 @@ entry_md_note = function(prompt_bufnr)
 	local parsed = utils.parse_entry(entry)
 	if parsed.author ~= nil then 
 		local fileName = format_fileName(entry)
-		local pathName = '/Users/luis/master/notes/annotations/' .. fileName
+		local pathName = annotation_path .. fileName
 		local note = format_note(entry)
-		local message = 'yes'
-		
 
 		if file_exists(pathName) then
 			-- Open the file in read mode
