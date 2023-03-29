@@ -278,6 +278,7 @@ local function bibtex_picker(opts)
       attach_mappings = function(_, map)
         actions.select_default:replace(key_append(format_string))
         map('i', '<c-e>', entry_append)
+        map('i', '<c-m>', entry_md_note)
         map('i', '<c-c>', citation_append)
         return true
       end,
@@ -338,6 +339,62 @@ citation_append = function(prompt_bufnr)
     vim.api.nvim_paste(citation, true, -1)
   end
 end
+
+local function format_note(entry)
+  local parsed = utils.parse_entry(entry)
+  local today = os.date('%Y-%m-%d')
+  local note = '--- \ntitle: ' .. parsed.title .. '\n'
+  note = note .. "creation date: ['" .. today .. "']\n"
+  note = note .. 'authors: ' .. parsed.author .. '\n'
+  note = note .. 'year: ' .. parsed.year .. '\n'
+  note = note .. 'tags: \n'
+  note = note .. '--- \n \n'
+  if parsed.file ~= nil then
+    note = note .. 'link: [' .. parsed.title .. '](' .. parsed.file .. ')\n \n'
+  else
+    note = note
+  end
+
+  if parsed.abstract ~= nil then
+    note = note .. '```abstract\n' .. parsed.abstract .. '\n```\n'
+    note = note .. '# Notes\n'
+  else
+    note = note .. '```abstract\n' .. '\n```\n \n'
+    note = note .. '# Notes\n'
+  end
+
+  return note
+end
+
+local function format_fileName(entry)
+  local parsed = utils.parse_entry(entry)
+  local fileName = '@' .. parsed.label .. '.md'
+  return fileName
+end
+
+function file_exists(path)
+  local stat = vim.loop.fs_stat(path)
+  return stat and stat.type == 'file'
+end
+
+entry_md_note = function(prompt_bufnr)
+  local entry = action_state.get_selected_entry().id.content
+  actions.close(prompt_bufnr)
+  local fileName = format_fileName(entry)
+  local pathName = '/Users/luis/master/notes/annotations/' .. fileName
+  local note = format_note(entry)
+
+  if file_exists(pathName) then
+    -- Open the file in read mode
+    vim.cmd('edit' .. pathName)
+  else
+    vim.cmd('edit' .. pathName)
+    vim.api.nvim_paste(note, true, -1)
+  end
+end
+
+
+
 
 return telescope.register_extension({
   setup = function(ext_config)
