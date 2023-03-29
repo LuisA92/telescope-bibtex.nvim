@@ -38,6 +38,7 @@ local context_files = {}
 local search_keys = { 'author', 'year', 'title' }
 local citation_format = '{{author}} ({{year}}), {{title}}.'
 local citation_trim_firstname = true
+local annotation_path = '~/annotations/'
 local citation_max_auth = 2
 local user_context = false
 local user_context_fallback = true
@@ -388,7 +389,7 @@ entry_md_note = function(prompt_bufnr)
   local parsed = utils.parse_entry(entry)
   if parsed.author ~= nil then
     local fileName = format_fileName(entry)
-    local pathName = ext_config.annotation_path .. fileName
+    local pathName = annotation_path .. fileName
     local note = format_note(entry)
 
     if file_exists(pathName) then
@@ -421,6 +422,7 @@ return telescope.register_extension({
       use_auto_format = true
     end
     user_context = ext_config.context or user_context
+    annotation_path = ext_config.annotation_path or annotation_path
     user_context_fallback = ext_config.context_fallback or user_context_fallback
     if ext_config.global_files ~= nil then
       for _, file in pairs(ext_config.global_files) do
