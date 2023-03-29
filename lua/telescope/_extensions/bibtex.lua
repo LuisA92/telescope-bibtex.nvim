@@ -388,6 +388,7 @@ entry_md_note = function(prompt_bufnr)
 		local fileName = format_fileName(entry)
 		local pathName = '/Users/luis/master/notes/annotations/' .. fileName
 		local note = format_note(entry)
+		local message = 'yes'
 		
 
 		if file_exists(pathName) then
@@ -398,9 +399,9 @@ entry_md_note = function(prompt_bufnr)
 			vim.api.nvim_paste(note, true, -1)
 		end
 	else
-		vim.cmd('echo' .. ' "No author entry"')
-		
+		local message = ' no'
 	end
+	vim.cmd('echo' .. message)
 end
 
 
