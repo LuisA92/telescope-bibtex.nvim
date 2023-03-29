@@ -398,18 +398,11 @@ entry_md_note = function(prompt_bufnr)
 			vim.api.nvim_paste(note, true, -1)
 		end
 	else
-		vim.cmd('echo "No author entry... Check your Zotero entry"')
+		print("No author entry... Check your Zotero entry")
 	end
 end
 
---local function check_author_existence(entry)
-	--local parsed = utils.parse_entry(entry)
-	--if parsed.author ~= nil then 
-		--return true
-	--else
-		--vim.cmd('echo "No author entry... Check your Zotero entry"')
-	--end
---end
+
 
 
 return telescope.register_extension({
