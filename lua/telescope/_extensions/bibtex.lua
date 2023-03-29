@@ -279,6 +279,7 @@ local function bibtex_picker(opts)
         actions.select_default:replace(key_append(format_string))
         map('i', '<c-e>', entry_append)
         map('i', '<c-c>', citation_append)
+        map('i','<c-m>',entry_md_note)
         return true
       end,
     })
