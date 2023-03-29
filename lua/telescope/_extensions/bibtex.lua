@@ -399,7 +399,7 @@ entry_md_note = function(prompt_bufnr)
 			vim.api.nvim_paste(note, true, -1)
 		end
 	else
-		return vim.cmd('echo "no"')
+		print('false')
 	end
 end
 
