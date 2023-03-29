@@ -399,10 +399,8 @@ entry_md_note = function(prompt_bufnr)
 			vim.api.nvim_paste(note, true, -1)
 		end
 	else
-		local message = ' "no"'
-		return
+		return vim.cmd('echo "no"')
 	end
-	vim.cmd('echo "no"')
 end
 
 
