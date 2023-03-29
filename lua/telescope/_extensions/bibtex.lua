@@ -278,7 +278,6 @@ local function bibtex_picker(opts)
       attach_mappings = function(_, map)
         actions.select_default:replace(key_append(format_string))
         map('i', '<c-e>', entry_append)
-        map('i', '<c-m>', entry_md_note)
         map('i', '<c-c>', citation_append)
         return true
       end,
