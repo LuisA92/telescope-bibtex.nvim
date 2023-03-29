@@ -400,8 +400,8 @@ entry_md_note = function(prompt_bufnr)
 		end
 	else
 		vim.api.nvim_echo({
-    {"Error:", "ErrorMsg"},
-    {"No author key. Check your Zotero entry", "Error"}
+    {"Error creating note:", "ErrorMsg"},
+    {" Check your Zotero entry", "Error"}
 		}, false, {})
 		vim.cmd('messages')
 	end
