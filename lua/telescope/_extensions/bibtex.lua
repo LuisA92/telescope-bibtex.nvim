@@ -399,7 +399,11 @@ entry_md_note = function(prompt_bufnr)
 			vim.api.nvim_paste(note, true, -1)
 		end
 	else
-		vim.cmd('lua print("false")')
+		vim.api.nvim_echo({
+    {"Error:", "ErrorMsg"},
+    {"Something went wrong", "Error"}
+		}, true, {})
+		vim.cmd('messages')
 	end
 end
 
