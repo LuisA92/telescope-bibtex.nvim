@@ -344,7 +344,7 @@ end
 local function format_note(entry)
   local parsed = utils.parse_entry(entry)
   local today = os.date('%Y-%m-%d')
-	local filepath = "hook clip " .. parsed.file
+	local filepath = "hook clip " .. parsed.file .." 2>/dev/null"
 	local hookmark = os.execute(filepath)
 	local clipboardContents = io.popen("pbpaste"):read("*a")
   local note = '--- \ntitle: ' .. parsed.title .. '\n'
@@ -355,7 +355,7 @@ local function format_note(entry)
   note = note .. '--- \n \n'
   if parsed.file ~= nil then
     note = note
-      .. 'link: ['
+      .. 'link:\n['
       .. parsed.title
       .. ']('
       .. clipboardContents
