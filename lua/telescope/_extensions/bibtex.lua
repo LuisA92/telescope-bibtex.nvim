@@ -357,7 +357,7 @@ local function format_note(entry)
     note = note
       .. 'link: ['
       .. parsed.title
-      .. '](file:'
+      .. ']('
       .. clipboardContents
       .. ')\n \n'
   else
