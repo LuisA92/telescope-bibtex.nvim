@@ -349,9 +349,10 @@ local function format_note(entry)
 
 	local clipboardContents = io.popen("pbpaste"):read("*a")
   local note = '--- \ntitle: ' .. parsed.title .. '\n'
-  note = note .. "creation date: ['" .. today .. "']\n"
+  note = note .. "creation_date: ['" .. today .. "']\n"
   note = note .. 'authors: ' .. parsed.author .. '\n'
-  note = note .. 'year: ' .. parsed.year .. '\n'
+	note = note .. 'category: article_summary\n'
+  note = note .. 'publication_year: ' .. parsed.year .. '\n'
   note = note .. 'tags: \n'
 
   if parsed.file ~= nil then
