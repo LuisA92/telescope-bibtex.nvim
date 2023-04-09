@@ -368,8 +368,7 @@ local function format_note(entry)
 
 	note = note .. '--- \n \n'
 
-  if parsed.abstract ~= nil then
-    note = note .. '```abstract\n' .. parsed.abstract .. '\n```\n'
+  if parsed.abstract ~= nil then note = note .. '```abstract\n' .. parsed.abstract .. '\n```\n'
     note = note .. '# Notes\n'
   else
     note = note .. '```abstract\n' .. '\n```\n \n'
