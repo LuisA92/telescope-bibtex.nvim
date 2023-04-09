@@ -355,7 +355,7 @@ local function format_note(entry)
   note = note .. 'tags: \n'
 
   if parsed.file ~= nil then
-		note = note .. 'ref_list: [' .. parsed.title .. ']\n'
+		note = note .. 'ref_list: [' .. parsed.file .. ']\n'
     --note = note
       --.. 'link:\n['
       --.. parsed.title
